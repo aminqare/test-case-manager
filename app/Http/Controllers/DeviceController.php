@@ -13,10 +13,11 @@ class DeviceController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-    $devices = \App\Models\Device::all();
+{
+    $devices = \App\Models\Device::with('testCases')->get();
     return view('devices.index', compact('devices'));
-    }
+}
+
 
 
     /**
@@ -58,24 +59,23 @@ class DeviceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(Device $device) {
+        return view('devices.edit', compact('device'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    
+    public function update(Request $request, Device $device) {
+        $device->update($request->validate([
+            'name' => 'required',
+            'model_number' => 'required',
+            'description' => 'nullable',
+        ]));
+    
+        return redirect()->route('devices.index')->with('success', 'Device updated.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    
+    public function destroy(Device $device) {
+        $device->delete();
+    
+        return redirect()->route('devices.index')->with('success', 'Device deleted.');
     }
 }

@@ -5,6 +5,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DeviceController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\DeviceTestCaseController;
+
+Route::resource('devices.test-cases', DeviceTestCaseController::class);
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
