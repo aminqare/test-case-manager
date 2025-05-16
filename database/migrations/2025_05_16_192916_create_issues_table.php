@@ -10,22 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('test_cases', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('device_id')->constrained()->onDelete('cascade');
-    $table->string('title');
-    $table->text('description')->nullable();
-    $table->timestamps();
-});
-}
-
+    {
+        Schema::create('issues', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('test_cases');
+        Schema::dropIfExists('issues');
     }
 };
